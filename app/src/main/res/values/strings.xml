@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Note Cat Cam</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="select">SELECT</string>
+    <string name="selectBtn">SELECT</string>
+    <string name="real_note_cam">Real Note Cam</string>
+    <string name="save">save</string>
+</resources>
