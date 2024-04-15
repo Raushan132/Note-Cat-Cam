@@ -6,14 +6,15 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.learn.notecatcam.constant.StorageName;
 import com.learn.notecatcam.constant.StorageVariable;
 import com.learn.notecatcam.popup.AddNotePopup;
@@ -156,6 +157,14 @@ public class NoteCam extends CameraActivity {
         flipCam.setOnClickListener(l->{
              swapCamera();
         });
+        lastCaptureImage();
+
+        ImageView imageView = findViewById(R.id.recent_img_capture);
+        imageView.setOnClickListener(l->{
+            Log.e("here I am","yes working");
+            startActivity(new Intent(NoteCam.this, CaptureImageViewer.class));
+        });
+
 
         if(OpenCVLoader.initDebug()){
             cameraBridgeViewBase.enableView();
@@ -169,6 +178,24 @@ public class NoteCam extends CameraActivity {
         cameraBridgeViewBase.disableView();
         cameraBridgeViewBase.setCameraIndex(camera_Front_Or_Back);
         cameraBridgeViewBase.enableView();
+    }
+
+    private void lastCaptureImage() {
+        // Path to your folder containing images
+        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        // Get list of image files in the folder
+        File[] imageFiles = directory.listFiles((dir, name) -> name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".jpeg") || name.toLowerCase().endsWith(".png"));
+
+        // Check if there are any image files
+        if (imageFiles != null && imageFiles.length > 0) {
+            // Get the first image file
+            File firstImage = imageFiles[imageFiles.length-1];
+
+            // Load the first image into ImageView
+            ImageView imageView = findViewById(R.id.recent_img_capture);
+            Glide.with(this).load(firstImage).centerCrop().into(imageView);
+        }
     }
 
     @Override
@@ -198,6 +225,7 @@ public class NoteCam extends CameraActivity {
             context.sendBroadcast(mediaScanIntent);
 
             Toast.makeText(context, "Image saved to gallery", Toast.LENGTH_SHORT).show();
+            lastCaptureImage();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(context, "Failed to save image", Toast.LENGTH_SHORT).show();

@@ -19,6 +19,13 @@
         android:theme="@style/Theme.NoteCatCam"
         tools:targetApi="31">
         <activity
+            android:name=".CaptureImageViewer"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".DeviceActivity"
             android:exported="false">
             <meta-data

@@ -42,10 +42,14 @@ public class Date_Time_Picker {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.time_picker_popup);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        TimePicker time= dialog.findViewById(R.id.time_picker);
-        int hour=time.getHour();
-        int min=time.getMinute();
-        Log.e("time:-", hour +":"+ min);
+        Button set_time_btn = dialog.findViewById(R.id.change_date_btn);
+        set_time_btn.setOnClickListener(l->{
+            TimePicker time= dialog.findViewById(R.id.time_picker);
+            int hour=time.getHour();
+            int min=time.getMinute();
+            Log.e("time:-", hour +":"+ min);
+        });
+
 
         dialog.show();
     }

@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         noteCamFromPhotos.setOnClickListener(v -> {
+
             startActivity(new Intent(MainActivity.this, DeviceActivity.class));
         });
 
