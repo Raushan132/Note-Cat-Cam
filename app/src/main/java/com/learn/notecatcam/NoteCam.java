@@ -84,6 +84,7 @@ public class NoteCam extends CameraActivity {
 
 
                 notes= preferences.getString(StorageVariable.NOTE.name(), "");
+                String date_time_format = preferences.getString(StorageVariable.TIME_FORMAT.name(),"dd/MM/yyyy HH:mm:ss" );
                 boolean notes_empty= notes.trim().isEmpty();
                 int extraHeight = notes_empty?0:30;
                 // Add note rectangle
@@ -112,7 +113,7 @@ public class NoteCam extends CameraActivity {
                     Core.addWeighted(overlay, 0.5, rgbaFrame, 0.5, 0, rgbaFrame);
                     Log.e("location:","Not Found location");
                 }
-                String noteText = "Time: "+ new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
+                String noteText = "Time: "+ new SimpleDateFormat(date_time_format, Locale.getDefault()).format(new Date());
                 Imgproc.putText(rgbaFrame, noteText, new Point(rectX + 10, rectY + rectHeight - 20-extraHeight), Imgproc.FONT_HERSHEY_SIMPLEX, 0.6, textColor, 2);
                 if(!notes_empty)
                     Imgproc.putText(rgbaFrame,"Note: "+notes,new Point(rectX + 10, rectY + rectHeight+10-extraHeight), Imgproc.FONT_HERSHEY_SIMPLEX, 0.6, textColor, 2);

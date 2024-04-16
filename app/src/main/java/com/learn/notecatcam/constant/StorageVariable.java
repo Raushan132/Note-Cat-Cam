@@ -5,5 +5,6 @@ public enum StorageVariable {
     LONGITUDE,
     ALTITUDE,
     ACCURACY,
-    NOTE
+    NOTE,
+    TIME_FORMAT
 }
